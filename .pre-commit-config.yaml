@@ -1,0 +1,26 @@
+repos:
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v2.19.0
+    hooks:
+    -   id: commitizen
+        stages: [commit-msg]
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+-   repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.1.5
+    hooks:
+    -   id: check-mailmap
+    -   id: forbid-binary
+    -   id: shellcheck
+-   repo: local
+    hooks:
+    -   id: bats
+        name: bats
+        language: script
+        entry: venv/bin/bats .
+        files: ^.*bats$
