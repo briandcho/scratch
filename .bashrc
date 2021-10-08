@@ -1,5 +1,13 @@
 #!/bin/bash
 
-is_in() { local arg e=$1;shift;for arg; do if [[ $e == "$arg" ]]; then return 0; fi; done; return 1; }
+confirm() { local y; read -rp "$*? " y; [[ $y =~ ^[Yy] ]]; }
+expunge() {
+  local n s=""
+  n=$(ltrash | wc -l | tr -d \ )
+  [[ $n -gt 0 ]] || return 0
+  [[ $n -eq 1 ]] || s="s"
+  confirm "Purge $n item$s" || return 0
+  find "$HOME"/.Trash | tail -n+2 | xargs -I{} /bin/rm -- "{}"
+}
+ltrash() { ls -1AF "$HOME/.Trash"; }
 rm() { [[ -d "$HOME"/.Trash ]] || mkdir "$HOME"/.Trash; mv "$@" "$HOME"/.Trash; }
-expunge() { find "$HOME"/.Trash | tail -n+2 | xargs /bin/rm --; }
