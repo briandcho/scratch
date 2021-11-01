@@ -1,3 +1,4 @@
+#!/usr/bin/env bats
 load venv/lib/node_modules/bats-assert/load
 load venv/lib/node_modules/bats-support/load
 load .bashrc
